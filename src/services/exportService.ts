@@ -104,8 +104,6 @@ export async function exportFormsExcel(forms: ImalatForm[], filename?: string): 
     'Cadde/Sokak': f.general.street,
     'Bina Adedi/No': f.general.buildingNo,
     'Bağlantı Nesnesi': f.general.connectionObject,
-    'Test ve Devreye Alma': f.serviceChecks.testAndCommissioning ? 'Evet' : 'Hayır',
-    'Gazsız Şebeke Testi': f.serviceChecks.gaslessNetworkTest ? 'Evet' : 'Hayır',
     'Yüklenici': `${f.parties.contractor.firstName} ${f.parties.contractor.lastName}`.trim(),
     'Yüklenici Onayı': f.parties.contractor.approved ? `Evet (${f.parties.contractor.approvedAt})` : 'Hayır',
     Kontrol: `${f.parties.inspector.firstName} ${f.parties.inspector.lastName}`.trim(),

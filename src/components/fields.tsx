@@ -36,6 +36,10 @@ interface TextFieldProps {
   error?: string;
   required?: boolean;
   type?: 'text' | 'date' | 'tel';
+  inputMode?: 'text' | 'numeric' | 'decimal' | 'tel' | 'search' | 'email' | 'url';
+  pattern?: string;
+  maxLength?: number;
+  readOnly?: boolean;
   placeholder?: string;
   className?: string;
   autoComplete?: string;
@@ -48,6 +52,10 @@ export function TextField({
   error,
   required,
   type = 'text',
+  inputMode,
+  pattern,
+  maxLength,
+  readOnly,
   placeholder,
   className,
   autoComplete = 'off',
@@ -59,6 +67,10 @@ export function TextField({
         id={id}
         className="input"
         type={type}
+        inputMode={inputMode}
+        pattern={pattern}
+        maxLength={maxLength}
+        readOnly={readOnly}
         value={value}
         placeholder={placeholder}
         autoComplete={autoComplete}
@@ -119,14 +131,40 @@ interface SelectFieldProps<T extends string> {
   value: T;
   onChange: (v: T) => void;
   options: { value: T; label: string }[];
+  error?: string;
+  required?: boolean;
+  disabled?: boolean;
+  placeholder?: string;
   className?: string;
 }
 
-export function SelectField<T extends string>({ label, value, onChange, options, className }: SelectFieldProps<T>) {
+export function SelectField<T extends string>({
+  label,
+  value,
+  onChange,
+  options,
+  error,
+  required,
+  disabled,
+  placeholder,
+  className,
+}: SelectFieldProps<T>) {
   const id = useId();
   return (
-    <FieldShell label={label} htmlFor={id} className={className}>
-      <select id={id} className="input select" value={value} onChange={(e) => onChange(e.target.value as T)}>
+    <FieldShell label={label} htmlFor={id} error={error} required={required} className={className}>
+      <select
+        id={id}
+        className="input select"
+        value={value}
+        disabled={disabled}
+        onChange={(e) => onChange(e.target.value as T)}
+        aria-invalid={!!error}
+      >
+        {placeholder && (
+          <option value="" disabled={required}>
+            {placeholder}
+          </option>
+        )}
         {options.map((o) => (
           <option key={o.value} value={o.value}>
             {o.label}

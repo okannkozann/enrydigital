@@ -5,6 +5,7 @@ import {
   WORK_CATALOG,
   getSuggestedMaterialTemplates,
 } from './catalogs';
+import { DEFAULT_PROVINCE } from '../data/antalyaLocations';
 import {
   SCHEMA_VERSION,
   type ImalatForm,
@@ -42,7 +43,7 @@ export function createEmptyForm(id: string): ImalatForm {
       date: todayIso(),
       region: '',
       sector: '',
-      province: '',
+      province: DEFAULT_PROVINCE,
       district: '',
       neighborhood: '',
       street: '',
